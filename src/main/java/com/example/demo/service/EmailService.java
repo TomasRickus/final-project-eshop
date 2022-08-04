@@ -59,27 +59,5 @@ public class EmailService {
         javaMailSender.send(mimeMessage);
     }
 
-//    private Session getSession() {
-//        //Gmail Host
-//        String host = "smtp.gmail.com";
-//        String username = "tomrickus@gmail.com";
-//        //Enter your Gmail password
-//        String password = "";
-//
-//        Properties prop = new Properties();
-//        prop.put("mail.smtp.auth", true);
-//        prop.put("mail.smtp.starttls.enable", "true");
-//        prop.put("mail.smtp.host", host);
-//        prop.put("mail.smtp.port", 587);
-//        prop.put("mail.smtp.ssl.trust", host);
-//
-//        return Session.getInstance(prop, new Authenticator() {
-//            @Override
-//            protected PasswordAuthentication getPasswordAuthentication() {
-//                return new PasswordAuthentication(username, password);
-//            }
-//        });
-//    }
-
 }
 

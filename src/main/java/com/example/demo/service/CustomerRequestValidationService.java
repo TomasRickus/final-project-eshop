@@ -36,7 +36,7 @@ public class CustomerRequestValidationService {
         if (!missingFields.isEmpty()) {
             throw new CustomerRequestValidationException(MISSING_FIELDS + missingFields);
         }
-        LOGGER.info(SUCCESSFULLY);
+        LOGGER.info(SUCCESSFULLY); //patikslinti kintamaji
     }
 }
 

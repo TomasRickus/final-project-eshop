@@ -17,12 +17,14 @@ public class ProductRequestValidationService {
     public static final String QUANTITY = "Quantity";
     public static final String MISSING_FIELDS = "Product request can not be submitted due to missing fields ";
     public static final String SUCCESSFULLY = "Product request validation successfully.";
-    public static final String FABRIC = "Fabric";
     public static final String SIZE = "Size";
-    public static final String TYPE = "Type";
     private final Logger LOGGER = LoggerFactory.getLogger(ProductRequestValidationService.class);
 
     public void validateRequest(Product product) throws ProductRequestValidationException {
+
+        if(product == null) {
+            throw new ProductRequestValidationException("Product was null"); //panasiai su customer requestvalidation
+        }
         List<String> missingFields = new ArrayList<>();
 
         if (StringUtils.isEmpty(product.getTitle())) {
@@ -37,10 +39,6 @@ public class ProductRequestValidationService {
         if (StringUtils.isEmpty(product.getSize())) {
             missingFields.add(SIZE);
         }
-//        if (!StringUtils.isEmpty(product.getType().toString())) {
-//           return;
-//        }
-
         if (!missingFields.isEmpty()) {
             throw new ProductRequestValidationException(MISSING_FIELDS + missingFields);
         }
