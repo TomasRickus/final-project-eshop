@@ -1,7 +1,5 @@
 package com.example.demo.security;
 
-import org.springframework.format.number.PercentStyleFormatter;
-
 public class SecurityConstant {
 
     public static final long EXPIRATION_TIME = 432_00_000; // 5 days expressed in milliseconds
@@ -16,5 +14,5 @@ public class SecurityConstant {
     public static final String OPTIONS_HTTP_METHOD = "OPTIONS";
     public static final String[] PUBLIC_URLS =
             {"/customer/login", "/customer/add", "/product//findbytitlestart/{prefix}", "/product/findbytitle/{title}",
-            "/product/all", "/product/addtoorder"};
+                    "/product/all", "/product/addtoorder"};
 }

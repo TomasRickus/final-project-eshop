@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Customer;
-import com.example.demo.service.CustomerService;
 import com.example.demo.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,27 +14,21 @@ import javax.mail.MessagingException;
 @RestController
 public class RegistrationController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);    @Autowired
+    private final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
+    @Autowired
     private EmailService notificationService;
 
     @Autowired
     private Customer customer;
 
     /**
-     *
      * @return
      */
     @RequestMapping("send-mail")
     public String send() {
 
-        /*
-         * Creating a User with the help of User class that we have declared and setting
-         * Email address of the sender.
-         */
         customer.setEmail("tomrickus@gmail.com");  //Receiver's email address
-        /*
-         * Here we will call sendEmail() for Sending mail to the sender.
-         */
+
         try {
             notificationService.sendEmail(customer);
         } catch (MailException mailException) {
@@ -45,23 +38,16 @@ public class RegistrationController {
     }
 
     /**
-     *
      * @return
      * @throws MessagingException
      */
     @RequestMapping("send-mail-attachment")
     public String sendWithAttachment() throws MessagingException {
 
-        /*
-         * Creating a User with the help of User class that we have declared and setting
-         * Email address of the sender.
-         */
-        customer.setEmail("tomrickus@gmail.com"); //Receiver's email address
 
-        /*
-         * Here we will call sendEmailWithAttachment() for Sending mail to the sender
-         * that contains a attachment.
-         */
+        customer.setEmail("tomrickus@gmail.com");
+
+
         try {
             notificationService.sendEmailWithAttachment(customer);
         } catch (MailException mailException) {

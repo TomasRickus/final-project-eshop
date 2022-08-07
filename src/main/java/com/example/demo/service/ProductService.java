@@ -47,12 +47,12 @@ public class ProductService {
     }
 
     public ResponseEntity<List<Product>> save(final Product product) {
-        if(product != null) {
+        if (product != null) {
             productRepository.save(product);
             LOGGER.info(SAVING_PRODUCT + product.getTitle());
             final List<Product> allProducts = productRepository.findAll();
             return new ResponseEntity<>(allProducts, HttpStatus.CREATED);
-        }else {
+        } else {
             LOGGER.error(NOT_CREATED);
         }
         return null;

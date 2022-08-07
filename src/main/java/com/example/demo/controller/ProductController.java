@@ -23,7 +23,8 @@ public class ProductController {
     private final OrdersRepository ordersRepository;
 
 
-    public ProductController(ProductService productService, ProductRequestValidationService productRequestValidationService, OrdersRepository ordersRepository, OrdersService ordersService, OrdersRepository ordersRepository1) {
+    public ProductController(ProductService productService, ProductRequestValidationService productRequestValidationService,
+                             OrdersRepository ordersRepository, OrdersService ordersService, OrdersRepository ordersRepository1) {
         this.productService = productService;
         this.productRequestValidationService = productRequestValidationService;
         this.ordersService = ordersService;

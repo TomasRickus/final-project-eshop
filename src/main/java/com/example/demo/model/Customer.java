@@ -41,10 +41,10 @@ public class Customer implements Serializable {
 
     private String[] authorities;
 
-    @OneToOne(mappedBy = "customer", cascade=CascadeType.ALL)
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private Authority authority;
 
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Orders> orders;
 

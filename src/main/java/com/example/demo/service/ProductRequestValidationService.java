@@ -16,13 +16,13 @@ public class ProductRequestValidationService {
     public static final String PRICE = "Price";
     public static final String QUANTITY = "Quantity";
     public static final String MISSING_FIELDS = "Product request can not be submitted due to missing fields ";
-    public static final String SUCCESSFULLY = "Product request validation successfully.";
+    public static final String PRODUCT_REQUEST_SUCCESSFULLY = "Product request validation successfully.";
     public static final String SIZE = "Size";
     private final Logger LOGGER = LoggerFactory.getLogger(ProductRequestValidationService.class);
 
     public void validateRequest(Product product) throws ProductRequestValidationException {
 
-        if(product == null) {
+        if (product == null) {
             throw new ProductRequestValidationException("Product was null");
         }
         List<String> missingFields = new ArrayList<>();
@@ -42,7 +42,7 @@ public class ProductRequestValidationService {
         if (!missingFields.isEmpty()) {
             throw new ProductRequestValidationException(MISSING_FIELDS + missingFields);
         }
-        LOGGER.info(SUCCESSFULLY);
+        LOGGER.info(PRODUCT_REQUEST_SUCCESSFULLY);
     }
 }
 

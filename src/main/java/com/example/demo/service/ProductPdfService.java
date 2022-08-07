@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Product;
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -26,16 +27,19 @@ public class ProductPdfService {
             PdfWriter.getInstance(document, outputStream);
             document.open();
 
-            PdfPCell cell2 = new PdfPCell(new Paragraph("Price"));
-            PdfPCell cell3 = new PdfPCell(new Paragraph("Title"));
-            PdfPCell cell4 = new PdfPCell(new Paragraph("Quantity"));
-            PdfPCell cell5 = new PdfPCell(new Paragraph("Fabric"));
+            PdfPCell cell2 = new PdfPCell(new Paragraph("KAINA"));
+            PdfPCell cell3 = new PdfPCell(new Paragraph("PAVADINIMAS"));
+            PdfPCell cell4 = new PdfPCell(new Paragraph("KIEKIS"));
+            PdfPCell cell5 = new PdfPCell(new Paragraph("MEDŽIAGA"));
 
             PdfPTable pdfPTable = new PdfPTable(4);
-            pdfPTable.addCell(cell3);
-            pdfPTable.addCell(cell2);
-            pdfPTable.addCell(cell4);
-            pdfPTable.addCell(cell5);
+            pdfPTable.addCell(cell3).setBorderColor(BaseColor.BLUE);
+            pdfPTable.addCell(cell2).setBorderColor(BaseColor.BLUE);
+            ;
+            pdfPTable.addCell(cell4).setBorderColor(BaseColor.BLUE);
+            ;
+            pdfPTable.addCell(cell5).setBorderColor(BaseColor.BLUE);
+            ;
 
             for (Product product : products) {
 
@@ -51,7 +55,7 @@ public class ProductPdfService {
             }
 
             Paragraph paragraph = new Paragraph();
-            paragraph.add("Viso suma: ");
+            paragraph.add("");
             paragraph.setAlignment(150);
 
             document.add(pdfPTable);

@@ -50,16 +50,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/product/**", "/orders/**,","/customer/**").permitAll().anyRequest().authenticated()
+                .antMatchers("/product/**", "/orders/**,", "/customer/**").permitAll().anyRequest().authenticated()
                 .and().formLogin().permitAll().and().logout().permitAll().and().httpBasic();
         http.cors().disable().csrf().disable();
     }
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.formLogin();
-//        http.authorizeRequests().antMatchers("/product/**").permitAll()
-//                .antMatchers("/admin").hasAuthority("ADMIN")
-//                .antMatchers("/products").hasAnyAuthority("USER", "ADMIN")
-//                .anyRequest().authenticated();
-//    }
 }

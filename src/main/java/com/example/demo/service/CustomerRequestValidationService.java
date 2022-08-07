@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.CustomerRequestValidationException;
-import com.example.demo.exception.ProductRequestValidationException;
 import com.example.demo.model.Customer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -17,14 +16,15 @@ public class CustomerRequestValidationService {
     public static final String USERNAME = "Username ";
     public static final String EMAIL = "Email ";
     public static final String PASSWORD = "Password ";
+    public static final String CUSTOMER_WAS_NULL = "Customer was null";
     private final Logger LOGGER = LoggerFactory.getLogger(CustomerRequestValidationService.class);
     public static final String MISSING_FIELDS = "Customer request can not be submitted due to missing fields ";
-    public static final String SUCCESSFULLY = "Customer request validation successfully.";
+    public static final String CUSTOMER_REQUEST_SUCCESSFULLY = "Customer request validation successfully.";
 
     public void validateRequest(Customer customer) throws CustomerRequestValidationException {
 
-        if(customer == null) {
-            throw new CustomerRequestValidationException("Customer was null");
+        if (customer == null) {
+            throw new CustomerRequestValidationException(CUSTOMER_WAS_NULL);
         }
         List<String> missingFields = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class CustomerRequestValidationService {
         if (!missingFields.isEmpty()) {
             throw new CustomerRequestValidationException(MISSING_FIELDS + missingFields);
         }
-        LOGGER.info(SUCCESSFULLY); //patikslinti kintamaji
+        LOGGER.info(CUSTOMER_REQUEST_SUCCESSFULLY);
     }
 }
 

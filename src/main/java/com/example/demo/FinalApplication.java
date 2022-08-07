@@ -112,10 +112,6 @@ public class FinalApplication {
                     .orders(pirmas)
                     .build();
             productRepository.save(rubasnr4);
-
-
-
-
         };
     }
 
