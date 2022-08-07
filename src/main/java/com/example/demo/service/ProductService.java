@@ -42,7 +42,7 @@ public class ProductService {
         List<Product> products = productRepository.findAll();
         LOGGER.info(FOUND_PRODUCT);
         convertToJson(products);
-//        productPdfService.exportProductsToPdf(products);
+        productPdfService.exportProductsToPdf(products);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
@@ -51,7 +51,7 @@ public class ProductService {
             productRepository.save(product);
             LOGGER.info(SAVING_PRODUCT + product.getTitle());
             final List<Product> allProducts = productRepository.findAll();
-            return new ResponseEntity<>(allProducts, HttpStatus.OK);
+            return new ResponseEntity<>(allProducts, HttpStatus.CREATED);
         }else {
             LOGGER.error(NOT_CREATED);
         }

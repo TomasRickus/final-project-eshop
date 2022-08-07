@@ -29,7 +29,7 @@ public class EmailService {
 
     public void sendEmail(Customer customer) throws MailException {
         SimpleMailMessage mail = new SimpleMailMessage();
-        mail.setTo(customer.getEmail());
+        mail.setTo("tomrickus@gmail.com");
         mail.setSubject("Testing Mail");
         mail.setText("Bandomas siuntimas");
 

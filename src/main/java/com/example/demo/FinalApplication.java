@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import com.example.demo.enums.ProductType;
 import com.example.demo.model.Authority;
 import com.example.demo.model.Customer;
 import com.example.demo.model.Orders;
@@ -37,6 +36,10 @@ public class FinalApplication {
             Customer admin = new Customer();
             admin.setEmail("tomrickus@gmail.com");
             admin.setUsername("admin");
+
+            admin.setRoles(new String[]{"login"});
+
+            admin.setAuthorities(new String[]{"ADMIN", "USER"});
 
             final String encodedPassword = passwordEncoder.encode("admin");
             admin.setPassword(encodedPassword);
@@ -81,6 +84,36 @@ public class FinalApplication {
                     .build();
 
             productRepository.save(margaSuknele);
+
+            Product rubasnr3 = Product.builder()
+                    .title("Melynas bliuzonas")
+                    .color("Melyna")
+                    .fabric("Veliuras")
+                    .quantity(1)
+                    .price(5.5)
+                    .type("BOYS")
+                    .size("112")
+                    .imageUrl("assets\\melynasbliuzonas.jpg")
+                    .description("Labai grazus, meragtiskas megztinis su issiuvinetu zuikiu ir balionu......... ")
+                    .orders(pirmas)
+                    .build();
+            productRepository.save(rubasnr3);
+
+            Product rubasnr4 = Product.builder()
+                    .title("Zalia suknele")
+                    .color("Zalia")
+                    .fabric("Sintetika")
+                    .quantity(1)
+                    .price(32.5)
+                    .type("GIRLS")
+                    .size("112")
+                    .imageUrl("assets\\zaliasuknele.jpg")
+                    .description("Žalia suknele su vienaragio lipduku priekyje")
+                    .orders(pirmas)
+                    .build();
+            productRepository.save(rubasnr4);
+
+
 
 
         };

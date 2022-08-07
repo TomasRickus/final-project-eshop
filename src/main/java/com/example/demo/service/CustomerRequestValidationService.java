@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.exception.CustomerRequestValidationException;
+import com.example.demo.exception.ProductRequestValidationException;
 import com.example.demo.model.Customer;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -21,6 +22,10 @@ public class CustomerRequestValidationService {
     public static final String SUCCESSFULLY = "Customer request validation successfully.";
 
     public void validateRequest(Customer customer) throws CustomerRequestValidationException {
+
+        if(customer == null) {
+            throw new CustomerRequestValidationException("Customer was null");
+        }
         List<String> missingFields = new ArrayList<>();
 
         if (StringUtils.isEmpty(customer.getUsername())) {

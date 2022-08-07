@@ -23,7 +23,7 @@ public class ProductRequestValidationService {
     public void validateRequest(Product product) throws ProductRequestValidationException {
 
         if(product == null) {
-            throw new ProductRequestValidationException("Product was null"); //panasiai su customer requestvalidation
+            throw new ProductRequestValidationException("Product was null");
         }
         List<String> missingFields = new ArrayList<>();
 

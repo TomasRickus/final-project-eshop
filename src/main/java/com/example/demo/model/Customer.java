@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
 @Setter
@@ -17,11 +18,13 @@ import java.util.List;
 @Builder
 @Entity
 @Component
-public class Customer {
+public class Customer implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, updatable = false)
     private Long id;
+    private String userId;
     @NotBlank
     @Size(min = 4)
     private String username;
@@ -31,7 +34,12 @@ public class Customer {
     @NotBlank
     @Size(min = 4)
     private String password;
-    private Boolean enabled;
+    private String[] roles;
+    private boolean enabled;
+    private boolean isActive;
+    private boolean isNotLocked;
+
+    private String[] authorities;
 
     @OneToOne(mappedBy = "customer", cascade=CascadeType.ALL)
     private Authority authority;
