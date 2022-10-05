@@ -1,12 +1,10 @@
 package com.example.demo;
 
-import com.example.demo.model.Authority;
-import com.example.demo.model.Customer;
-import com.example.demo.model.Orders;
-import com.example.demo.model.Product;
-import com.example.demo.repository.CustomerRepository;
+import com.example.demo.model.*;
 import com.example.demo.repository.OrdersRepository;
 import com.example.demo.repository.ProductRepository;
+import com.example.demo.repository.RoleRepository;
+import com.example.demo.repository.UserRepository;
 import com.example.demo.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -15,8 +13,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Set;
+
 @SpringBootApplication
 public class FinalApplication {
+
 
     public static void main(String[] args) {
         SpringApplication.run(FinalApplication.class, args);
@@ -29,30 +30,48 @@ public class FinalApplication {
     private OrdersService ordersService;
 
     @Bean
-    public CommandLineRunner commandLineRunner(final CustomerRepository customerRepository, ProductRepository productRepository,
-                                               OrdersRepository ordersRepository) {
+    public CommandLineRunner commandLineRunner(final UserRepository userRepository, ProductRepository productRepository,
+                                               OrdersRepository ordersRepository, RoleRepository roleRepository) {
         return args -> {
 
-            Customer admin = new Customer();
+            Role adminRole = new Role();
+            adminRole.setName(ERole.ROLE_ADMIN);
+
+
+            Role modRole = new Role();
+            modRole.setName(ERole.ROLE_MODERATOR);
+
+
+            Role userRole = new Role();
+            userRole.setName(ERole.ROLE_USER);
+            roleRepository.save(adminRole);
+            roleRepository.save(modRole);
+            roleRepository.save(userRole);
+
+            User admin = new User();
             admin.setEmail("tomrickus@gmail.com");
             admin.setUsername("admin");
 
-            admin.setRoles(new String[]{"login"});
-
-            admin.setAuthorities(new String[]{"ADMIN", "USER"});
-
-            final String encodedPassword = passwordEncoder.encode("admin");
+            final String encodedPassword = passwordEncoder.encode("admin123");
             admin.setPassword(encodedPassword);
+            admin.setRoles(Set.of(adminRole));
 
-            admin.setEnabled(true);
-            Authority authority = new Authority();
-            authority.setAuthority("ADMIN");
-            authority.setCustomer(admin);
-            admin.setAuthority(authority);
-            customerRepository.save(admin);
+
+            userRepository.save(admin);
+
+            User second = new User();
+            second.setEmail("meandyou.clothing@yahoo.com");
+            second.setUsername("second");
+
+
+            passwordEncoder.encode("second");
+            second.setPassword(encodedPassword);
+
+
+            userRepository.save(second);
 
             Orders pirmas = Orders.builder()
-                    .customer(admin)
+                    .user(second)
                     .build();
             ordersRepository.save(pirmas);
 
@@ -114,5 +133,4 @@ public class FinalApplication {
             productRepository.save(rubasnr4);
         };
     }
-
 }

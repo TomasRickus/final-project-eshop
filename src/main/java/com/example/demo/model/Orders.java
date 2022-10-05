@@ -29,6 +29,6 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonBackReference
-    private Customer customer;
+    private User user;
 
 }

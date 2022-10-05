@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Customer;
+import com.example.demo.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,11 +13,13 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.util.Objects;
 
 @Service
 public class EmailService {
 
+    @Autowired
     private final JavaMailSender javaMailSender;
 
     @Autowired
@@ -23,7 +27,7 @@ public class EmailService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendEmail(Customer customer) throws MailException {
+    public void sendEmail(User user) throws MailException {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setTo("tomrickus@gmail.com");
         mail.setSubject("Testing Mail");
@@ -32,28 +36,27 @@ public class EmailService {
         javaMailSender.send(mail);
     }
 
-    /**
-     * This fucntion is used to send mail that contains a attachment.
-     *
-     * @param
-     * @throws MailException
-     * @throws MessagingException
-     */
-    public void sendEmailWithAttachment(Customer customer) throws MailException, MessagingException {
+    private final Logger LOGGER = LoggerFactory.getLogger(EmailService.class);
+
+    public void sendMailWithAttachment(String toEmail,
+                                       String body,
+                                       String subject,
+                                       String attachment
+    ) throws MessagingException {
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
 
-        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+        mimeMessageHelper.setFrom("tomrickus@gmail.com");
+        mimeMessageHelper.setTo(toEmail);
+        mimeMessageHelper.setText(body);
+        mimeMessageHelper.setSubject(subject);
 
-        helper.setTo(customer.getEmail());
-        helper.setSubject("Testing Mail API with Attachment");
-        helper.setText("Please find the attached document below.");
-
-        ClassPathResource classPathResource = new ClassPathResource("Attachment.pdf");
-        helper.addAttachment(Objects.requireNonNull(classPathResource.getFilename()), classPathResource);
-
+        FileSystemResource fileSystemResource = new FileSystemResource(new File(attachment));
+        mimeMessageHelper.addAttachment(Objects.requireNonNull(fileSystemResource.getFilename()), fileSystemResource);
         javaMailSender.send(mimeMessage);
-    }
 
+        LOGGER.info("Mail with attachment sent successfully!");
+    }
 }
 

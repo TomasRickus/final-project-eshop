@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Customer;
+import com.example.demo.model.User;
 import com.example.demo.service.EmailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,45 +14,44 @@ import javax.mail.MessagingException;
 @RestController
 public class RegistrationController {
 
+    public static final String MAIL_SEND_TO_USER = "Congratulations! Your mail has been send to the user.";
     private final Logger LOGGER = LoggerFactory.getLogger(RegistrationController.class);
     @Autowired
     private EmailService notificationService;
 
     @Autowired
-    private Customer customer;
+    private User user;
 
-    /**
-     * @return
-     */
     @RequestMapping("send-mail")
     public String send() {
 
-        customer.setEmail("tomrickus@gmail.com");  //Receiver's email address
+        user.setEmail("tomrickus@gmail.com");  //Receiver's email address
 
         try {
-            notificationService.sendEmail(customer);
+            notificationService.sendEmail(user);
         } catch (MailException mailException) {
             LOGGER.info(String.valueOf(mailException));
         }
-        return "Congratulations! Your mail has been send to the user.";
+        return MAIL_SEND_TO_USER;
     }
 
-    /**
-     * @return
-     * @throws MessagingException
-     */
+    @Autowired
+    private EmailService emailService;
+
     @RequestMapping("send-mail-attachment")
-    public String sendWithAttachment() throws MessagingException {
 
-
-        customer.setEmail("tomrickus@gmail.com");
-
+    public String sendMailWithAttachment() throws MessagingException {
+        emailService.sendMailWithAttachment("tomrickus@gmail.com",
+                "This is body",
+                "This Email this attachment",
+                "products.pdf");
 
         try {
-            notificationService.sendEmailWithAttachment(customer);
+            notificationService.sendEmail(user);
         } catch (MailException mailException) {
             LOGGER.info(String.valueOf(mailException));
         }
-        return "Congratulations! Your mail has been send to the user.";
+        return MAIL_SEND_TO_USER;
+
     }
 }

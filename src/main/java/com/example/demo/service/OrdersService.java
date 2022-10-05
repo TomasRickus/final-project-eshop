@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Customer;
 import com.example.demo.model.Orders;
 import com.example.demo.model.Product;
+import com.example.demo.model.User;
 import com.example.demo.repository.OrdersRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -86,10 +86,10 @@ public class OrdersService {
         }
     }
 
-    public void orderExistValidateForCustomer(Customer customer) {
-        if (customer.getOrders() == null) {
+    public void orderExistValidateForCustomer(User user) {
+        if (user.getOrders() == null) {
             final Orders createdOrder = ordersRepository.save(new Orders());
-            customer.setOrders(List.of(createdOrder));
+            user.setOrders(List.of(createdOrder));
         }
     }
 }
